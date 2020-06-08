@@ -53,12 +53,17 @@ def main(sess, age, gender, train_mode, images_pl):
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
     while True:
+        for ind in range(1,151):
         # get video frame
-        ret, img = cap.read()
-
-        if not ret:
-            print("error: failed to capture image")
-            return -1
+        #ret, img = cap.read()
+        #if not ret:
+        #    print("error: failed to capture image")
+        #    return -1
+        fname = "/barn3/mengmeng/Meng_test/" + str(ind) + ".jpg"
+        #fname = "/barn1/Lei/age_test/" + str(ind) + ".jpg"
+        print(fname)
+        img = cv2.imread(fname) #Lei, 6/8/2020
+        print(img.shape)
 
         input_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -93,6 +98,8 @@ def main(sess, age, gender, train_mode, images_pl):
             draw_label(img, (d.left(), d.top()), label)
 
         cv2.imshow("result", img)
+        ofname = "/barn3/mengmeng/output/output_test/" + str(ind) + ".png"
+        cv2.imwrite(ofname, img) #Lei, 6/8/2020
         key = cv2.waitKey(1)
 
         if key == 27:
